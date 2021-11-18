@@ -70,6 +70,18 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.of(context).push(TutorialOverlay());
   }
 
+  void fade() {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (c, a1, a2) => const BlankPage(),
+        transitionsBuilder: (c, anim, a2, child) =>
+            FadeTransition(opacity: anim, child: child),
+        transitionDuration: Duration(milliseconds: 2000),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     print("MyHomePage build");
@@ -86,7 +98,8 @@ class _MyHomePageState extends State<MyHomePage> {
             onTap: () {
               // navigate();
               // bottomSheet();
-              overlay();
+              // overlay();
+              fade();
             },
             title: Image.network(
                 "https://flutter.cn/assets/images/cn/flutter-cn-logo.png"),

@@ -17,3 +17,6 @@ In common sence, image widget should not be rebuilt whenever data changed
 ## What to expect
 Image widget only build once when they show.
 
+## Flutter Issue related to this
+
+https://github.com/flutter/flutter/issues/11655
