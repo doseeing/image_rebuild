@@ -20,3 +20,5 @@ Image widget only build once when they show.
 ## Flutter Issue related to this
 
 https://github.com/flutter/flutter/issues/11655
+
+https://github.com/flutter/flutter/issues/18774#issuecomment-503593201
