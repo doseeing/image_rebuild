@@ -66,6 +66,10 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void overlay() {
+    Navigator.of(context).push(TutorialOverlay());
+  }
+
   @override
   Widget build(BuildContext context) {
     print("MyHomePage build");
@@ -80,8 +84,9 @@ class _MyHomePageState extends State<MyHomePage> {
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
             onTap: () {
-              navigate();
+              // navigate();
               // bottomSheet();
+              overlay();
             },
             title: Image.network(
                 "https://flutter.cn/assets/images/cn/flutter-cn-logo.png"),
@@ -103,5 +108,34 @@ class BlankPage extends StatelessWidget {
         appBar: AppBar(
       title: const Text("Blank Page"),
     ));
+  }
+}
+
+class TutorialOverlay extends ModalRoute<void> {
+  @override
+  Duration get transitionDuration => const Duration(milliseconds: 100);
+
+  @override
+  bool get opaque => false;
+
+  @override
+  bool get barrierDismissible => false;
+
+  @override
+  Color get barrierColor => Colors.black.withOpacity(1.0);
+
+  @override
+  String get barrierLabel => "";
+
+  @override
+  bool get maintainState => true;
+
+  @override
+  Widget buildPage(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+  ) {
+    return const BlankPage();
   }
 }
