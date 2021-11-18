@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'page_v2.dart';
 
 void main() {
   runApp(const MyApp());
@@ -56,6 +57,13 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void navigateV2() {
+    Navigator.push(
+      context,
+      MaterialPageRouteV2(builder: (context) => const BlankPage()),
+    );
+  }
+
   void bottomSheet() {
     showModalBottomSheet<void>(
       context: context,
@@ -74,10 +82,16 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.push(
       context,
       PageRouteBuilder(
+        opaque: false,
         pageBuilder: (c, a1, a2) => const BlankPage(),
-        transitionsBuilder: (c, anim, a2, child) =>
-            FadeTransition(opacity: anim, child: child),
-        transitionDuration: Duration(milliseconds: 2000),
+        transitionsBuilder: (c, anim, a2, child) => SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(1.0, 0.0),
+            end: Offset.zero,
+          ).animate(anim),
+          child: child,
+        ),
+        transitionDuration: const Duration(milliseconds: 2000),
       ),
     );
   }
@@ -99,7 +113,8 @@ class _MyHomePageState extends State<MyHomePage> {
               // navigate();
               // bottomSheet();
               // overlay();
-              fade();
+              // fade();
+              navigateV2();
             },
             title: Image.network(
                 "https://flutter.cn/assets/images/cn/flutter-cn-logo.png"),
@@ -126,7 +141,7 @@ class BlankPage extends StatelessWidget {
 
 class TutorialOverlay extends ModalRoute<void> {
   @override
-  Duration get transitionDuration => const Duration(milliseconds: 100);
+  Duration get transitionDuration => const Duration(milliseconds: 200);
 
   @override
   bool get opaque => false;
@@ -150,5 +165,21 @@ class TutorialOverlay extends ModalRoute<void> {
     Animation<double> secondaryAnimation,
   ) {
     return const BlankPage();
+  }
+
+  @override
+  Widget buildTransitions(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    return SlideTransition(
+      position: Tween<Offset>(
+        begin: const Offset(1.0, 0.0),
+        end: Offset.zero,
+      ).animate(animation),
+      child: child,
+    );
   }
 }
