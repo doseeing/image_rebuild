@@ -49,8 +49,27 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  void navigate() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const BlankPage()),
+    );
+  }
+
+  void bottomSheet() {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return const BlankPage();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    print("MyHomePage build");
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -60,12 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
         itemCount: 3,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
-            onTap: () async {
-              // After push,
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const BlankPage()),
-              );
+            onTap: () {
+              navigate();
+              // bottomSheet();
             },
             title: Image.network(
                 "https://flutter.cn/assets/images/cn/flutter-cn-logo.png"),
@@ -82,6 +98,7 @@ class BlankPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("BlankPage build");
     return Scaffold(
         appBar: AppBar(
       title: const Text("Blank Page"),
